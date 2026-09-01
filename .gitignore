@@ -1,0 +1,10 @@
+# Image artifacts are uploaded as GitHub Release assets.
+*.img
+*.img.xz
+*.img.xz.sha256
+
+# Temporary files
+*.tmp
+*.log
+.DS_Store
+Thumbs.db

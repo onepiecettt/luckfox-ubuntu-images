@@ -1,0 +1,91 @@
+name: Publish GitHub Release
+
+on:
+  push:
+    tags:
+      - "ubuntu-images-*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing GitHub Release tag
+        required: true
+        type: string
+      version:
+        description: Release notes version, for example 202609
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Resolve release information
+        id: release
+        shell: bash
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            tag="$INPUT_TAG"
+            version="$INPUT_VERSION"
+          else
+            tag="$GITHUB_REF_NAME"
+            version="${tag#ubuntu-images-}"
+
+            if [[ "$version" == "$tag" ]]; then
+              echo "Unexpected tag format: $tag" >&2
+              exit 1
+            fi
+          fi
+
+          if [[ ! "$tag" =~ ^[0-9A-Za-z][0-9A-Za-z._/-]*$ ]]; then
+            echo "Invalid release tag: $tag" >&2
+            exit 1
+          fi
+
+          if [[ ! "$version" =~ ^[0-9A-Za-z._-]+$ ]]; then
+            echo "Invalid release version: $version" >&2
+            exit 1
+          fi
+
+          notes="releases/${version}.md"
+          if [[ ! -f "$notes" ]]; then
+            echo "Release notes not found: $notes" >&2
+            exit 1
+          fi
+
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "notes=$notes" >> "$GITHUB_OUTPUT"
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+          VERSION: ${{ steps.release.outputs.version }}
+          NOTES: ${{ steps.release.outputs.notes }}
+        run: |
+          set -euo pipefail
+
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release edit "$TAG" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "Luckfox Ubuntu 镜像 ${VERSION}" \
+              --notes-file "$NOTES"
+          else
+            gh release create "$TAG" \
+              --repo "$GITHUB_REPOSITORY" \
+              --verify-tag \
+              --title "Luckfox Ubuntu 镜像 ${VERSION}" \
+              --notes-file "$NOTES"
+          fi

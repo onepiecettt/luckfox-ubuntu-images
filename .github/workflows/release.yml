@@ -80,12 +80,12 @@ jobs:
           if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             gh release edit "$TAG" \
               --repo "$GITHUB_REPOSITORY" \
-              --title "Luckfox Ubuntu 镜像 ${VERSION}" \
+              --title "ubuntu-images-${VERSION}" \
               --notes-file "$NOTES"
           else
             gh release create "$TAG" \
               --repo "$GITHUB_REPOSITORY" \
               --verify-tag \
-              --title "Luckfox Ubuntu 镜像 ${VERSION}" \
+              --title "ubuntu-images-${VERSION}" \
               --notes-file "$NOTES"
           fi

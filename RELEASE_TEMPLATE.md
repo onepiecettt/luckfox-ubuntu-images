@@ -1,48 +1,40 @@
 # Luckfox Ubuntu 镜像 <版本号>
 
-本 Release 包含多个 Luckfox 开发板型号的 Ubuntu 镜像。下载前请根据开发板完整型号和目标介质选择对应文件，不同型号的镜像不能混用。
-
 ## 更新内容
 
-首次发布时可以简单填写：
+- `<新增镜像、系统升级或问题修复>`
 
-- 首次发布 Luckfox Ubuntu 镜像。
-- 提供以下开发板型号的系统镜像。
+首次发布没有历史更新日志时，可以只写：
 
-后续版本请改为本次实际新增、升级和修复的内容，例如：
-
-- 新增 `<开发板型号>` 的 `<启动介质>` 镜像。
-- Ubuntu 更新至 `<版本>`。
-- 内核更新至 `<版本>`。
-- 修复 `<问题描述>`。
+```text
+Luckfox Ubuntu 镜像首次发布。
+```
 
 ## 镜像列表
 
-| 产品系列 | 开发板型号 | 启动介质 | Ubuntu | 内核 | 架构 | 镜像文件 |
-| --- | --- | --- | --- | --- | --- | --- |
-| `<产品系列>` | `<完整型号>` | `<MicroSD/eMMC/其他>` | `<版本>` | `<版本>` | `<armhf/arm64>` | `<image-name>.img.xz` |
-| `<产品系列>` | `<完整型号>` | `<MicroSD/eMMC/其他>` | `<版本>` | `<版本>` | `<armhf/arm64>` | `<image-name>.img.xz` |
+同一次 Release 中的全部型号和介质统一写在此表，不为每个产品单独创建 Markdown。
 
-## 下载与校验
+| 产品系列 | 开发板型号 | 目标介质 | 镜像文件 |
+| --- | --- | --- | --- |
+| Luckfox Lyra | `<Lyra/Lyra Plus/Lyra Pi/Lyra Ultra/Lyra Zero W>` | `<SPI Flash/eMMC/TF 卡>` | `<image-name>.img.xz` |
+| Luckfox Lyra | `<Lyra/Lyra Plus/Lyra Pi/Lyra Ultra/Lyra Zero W>` | `<SPI Flash/eMMC/TF 卡>` | `<image-name>.img.xz` |
 
-每个镜像都应同时上传压缩包和对应的 SHA256 文件：
+## 下载附件
+
+每个镜像都必须同时上传对应的 SHA256 文件：
 
 ```text
 <image-name>.img.xz
 <image-name>.img.xz.sha256
 ```
 
-将两者下载到同一个目录后执行：
-
-```bash
-sha256sum -c <image-name>.img.xz.sha256
-```
-
-显示 `<image-name>.img.xz: OK` 后再进行烧录。
+请同时下载镜像和 SHA256 文件，并在解压前完成完整性校验。各主机系统的校验命令请查看仓库首页。
 
 ## 烧录说明
 
-不同产品系列和存储介质使用的工具可能不同。请查看仓库首页的烧录方式，并以对应开发板文档为准。
+| 开发板型号 | 目标介质 | Windows | Linux（x86_64） | macOS |
+| --- | --- | --- | --- | --- |
+| `<完整型号>` | `<SPI Flash/eMMC/TF 卡>` | `<工具>` | `<工具或不支持>` | `<工具或不支持>` |
 
-> [!WARNING]
-> 烧录会覆盖目标存储设备上的全部数据。操作前请再次确认开发板型号、镜像文件和目标设备。
+> [!CAUTION]
+> 请使用表中指定的官方工具，不要使用 balenaEtcher 或 `dd` 替代。

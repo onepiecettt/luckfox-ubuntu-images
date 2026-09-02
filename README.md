@@ -103,13 +103,15 @@ Ubuntu_Luckfox_Lyra_Pi_A_eMMC_202609.img
 
 ### Supported Tools for the Lyra Family
 
+Download the official flashing tools from [LuckfoxTECH/Luckfox-Lyra-docs](https://github.com/LuckfoxTECH/Luckfox-Lyra-docs/tree/main/Tools).
+
 | Host system | Target storage | Flashing tool | Status |
 | --- | --- | --- | --- |
 | Windows | SPI Flash, eMMC | RKDevTool | Supported |
 | Windows | TF card | SDDiskTool | Supported |
 | Linux (x86_64) | SPI Flash, eMMC | Upgrade_Tool | Supported |
 | Linux (x86_64) | TF card | Not available | Not supported |
-| macOS | SPI Flash, eMMC | `upgrade_tool` | Supported |
+| macOS | SPI Flash, eMMC | upgrade_tool | Supported |
 | macOS | TF card | Not available | Not supported |
 
 ### eMMC Image Example
@@ -118,7 +120,7 @@ Using `Ubuntu_Luckfox_Lyra_Pi_A_eMMC_202609.img` as an example, select the eMMC 
 
 - Use RKDevTool on Windows.
 - Use Upgrade_Tool on Linux x86_64.
-- Use `upgrade_tool` on macOS.
+- Use upgrade_tool on macOS.
 
 Before flashing, put the board into the required upgrade mode. Follow the documentation for your exact board model for the supported tool version, USB connection, upgrade mode, and command parameters.
 

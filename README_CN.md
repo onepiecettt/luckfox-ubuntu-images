@@ -103,13 +103,15 @@ Ubuntu_Luckfox_Lyra_Pi_A_eMMC_202609.img
 
 ### Lyra 系列工具支持
 
+请从 [幸狐科技（Luckfox）官方工具目录](https://github.com/LuckfoxTECH/Luckfox-Lyra-docs/tree/main/Tools) 下载烧录工具。
+
 | 主机系统 | 目标介质 | 烧录工具 | 支持状态 |
 | --- | --- | --- | --- |
 | Windows | SPI Flash、eMMC | RKDevTool | 支持 |
 | Windows | TF 卡 | SDDiskTool | 支持 |
 | Linux（x86_64） | SPI Flash、eMMC | Upgrade_Tool | 支持 |
 | Linux（x86_64） | TF 卡 | 暂无 | 不支持 |
-| macOS | SPI Flash、eMMC | `upgrade_tool` | 支持 |
+| macOS | SPI Flash、eMMC | upgrade_tool | 支持 |
 | macOS | TF 卡 | 暂无 | 不支持 |
 
 ### eMMC 镜像示例
@@ -118,7 +120,7 @@ Ubuntu_Luckfox_Lyra_Pi_A_eMMC_202609.img
 
 - Windows 使用 RKDevTool。
 - Linux（仅 x86_64）使用 Upgrade_Tool。
-- macOS 使用 `upgrade_tool`。
+- macOS 使用 upgrade_tool。
 
 烧录前需要使开发板进入对应的升级模式。工具版本、USB 连接方式、升级模式和具体操作参数请遵循实际开发板型号的烧录文档。
 

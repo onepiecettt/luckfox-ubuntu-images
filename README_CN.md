@@ -2,7 +2,7 @@
 
 # Luckfox Ubuntu 镜像
 
-本仓库用于统一发布和维护 Luckfox Lyra 系列开发板的 Ubuntu 系统镜像，覆盖 Lyra、Lyra Plus、Lyra Pi、Lyra Ultra 和 Lyra Zero W。镜像文件通过 [GitHub Releases](../../releases) 发布，每次 Release 可以同时包含多个型号和多种存储介质的镜像。
+本仓库用于统一发布和维护 Luckfox Lyra 系列开发板的 Ubuntu 系统镜像，覆盖 Lyra、Lyra Plus、Lyra Pi、Lyra Ultra 和 Lyra Zero W。镜像文件通过 [GitHub Releases](https://github.com/onepiecettt/luckfox-ubuntu-images/releases) 发布，每次 Release 可以同时包含多个型号和多种存储介质的镜像。
 
 下载前请核对开发板完整型号和目标存储介质。不同型号、不同介质的镜像不能混用。
 
@@ -152,3 +152,7 @@ sha256sum -c Ubuntu_Luckfox_Lyra_Pi_A_eMMC_202609.img.xz.sha256
 ```
 
 推送 Release Tag 前，请将对应的英文发布说明保存为 `releases/<version>.md`。GitHub Actions 会将该文件发布为 Release 正文。
+
+## Gitee 镜像仓库
+
+[Gitee 镜像仓库](https://gitee.com/onepiecettt/luckfox-ubuntu-images) 自动同步 GitHub 的 main 分支和 Git 标签。系统镜像附件仍通过 GitHub Releases 下载。同步配置和排障方法见[同步说明](.github/GITEE_SYNC.md)。

@@ -1,0 +1,71 @@
+name: Sync to Gitee
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-gitee
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout main and all tags
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Sync main and tags
+        shell: bash
+        env:
+          GITEE_SSH_PRIVATE_KEY: ${{ secrets.GITEE_SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "$GITEE_SSH_PRIVATE_KEY" ]]; then
+            echo "::error::Add the GITEE_SSH_PRIVATE_KEY repository secret. See .github/GITEE_SYNC.md."
+            exit 1
+          fi
+
+          umask 077
+          ssh_dir="$RUNNER_TEMP/gitee-sync"
+          mkdir -p "$ssh_dir"
+          printf '%s\n' "$GITEE_SSH_PRIVATE_KEY" | tr -d '\r' > "$ssh_dir/id_ed25519"
+          ssh-keygen -y -P '' -f "$ssh_dir/id_ed25519" > /dev/null
+
+          export GIT_SSH_COMMAND="ssh -F /dev/null \
+            -i \"$ssh_dir/id_ed25519\" \
+            -o IdentitiesOnly=yes \
+            -o BatchMode=yes \
+            -o ConnectTimeout=20 \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile=\"$GITHUB_WORKSPACE/.github/gitee_known_hosts\""
+
+          # Keep existing Gitee history and tags if they diverge.
+          git push git@gitee.com:onepiecettt/luckfox-ubuntu-images.git \
+            HEAD:refs/heads/main
+          git push git@gitee.com:onepiecettt/luckfox-ubuntu-images.git \
+            'refs/tags/*:refs/tags/*'
+
+          {
+            printf 'Synced main commit: `%s`\n\n' "$(git rev-parse HEAD)"
+            printf '[View the Gitee repository](https://gitee.com/onepiecettt/luckfox-ubuntu-images)\n'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Remove temporary SSH key
+        if: always()
+        shell: bash
+        run: rm -f -- "$RUNNER_TEMP/gitee-sync/id_ed25519"

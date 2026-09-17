@@ -2,7 +2,7 @@
 
 # Luckfox Ubuntu Images
 
-This repository publishes and maintains Ubuntu images for the Luckfox Lyra family, including Lyra, Lyra Plus, Lyra Pi, Lyra Ultra, and Lyra Zero W. Images are distributed through [GitHub Releases](../../releases), and each release may contain images for multiple boards and storage media.
+This repository publishes and maintains Ubuntu images for the Luckfox Lyra family, including Lyra, Lyra Plus, Lyra Pi, Lyra Ultra, and Lyra Zero W. Images are distributed through [GitHub Releases](https://github.com/onepiecettt/luckfox-ubuntu-images/releases), and each release may contain images for multiple boards and storage media.
 
 Before downloading, check the complete board model and target storage medium. Images for different models or storage media are not interchangeable.
 
@@ -152,3 +152,7 @@ sha256sum -c Ubuntu_Luckfox_Lyra_Pi_A_eMMC_202609.img.xz.sha256
 ```
 
 Before pushing a release tag, add the corresponding English release notes as `releases/<version>.md`. The GitHub Actions workflow publishes that file as the Release body.
+
+## Gitee mirror
+
+The [Gitee mirror](https://gitee.com/onepiecettt/luckfox-ubuntu-images) automatically receives the main branch and Git tags from GitHub. Image assets remain on GitHub Releases. See the [sync setup guide](.github/GITEE_SYNC.md) for configuration and troubleshooting.

@@ -152,7 +152,3 @@ sha256sum -c Ubuntu_Luckfox_Lyra_Pi_A_eMMC_202609.img.xz.sha256
 ```
 
 Before pushing a release tag, add the corresponding English release notes as `releases/<version>.md`. The GitHub Actions workflow publishes that file as the Release body.
-
-## Gitee mirror
-
-The [Gitee mirror](https://gitee.com/onepiecettt/luckfox-ubuntu-images) automatically receives the main branch and Git tags from GitHub. Image assets remain on GitHub Releases. See the [sync setup guide](.github/GITEE_SYNC.md) for configuration and troubleshooting.

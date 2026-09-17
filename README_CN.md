@@ -152,7 +152,3 @@ sha256sum -c Ubuntu_Luckfox_Lyra_Pi_A_eMMC_202609.img.xz.sha256
 ```
 
 推送 Release Tag 前，请将对应的英文发布说明保存为 `releases/<version>.md`。GitHub Actions 会将该文件发布为 Release 正文。
-
-## Gitee 镜像仓库
-
-[Gitee 镜像仓库](https://gitee.com/onepiecettt/luckfox-ubuntu-images) 自动同步 GitHub 的 main 分支和 Git 标签。系统镜像附件仍通过 GitHub Releases 下载。同步配置和排障方法见[同步说明](.github/GITEE_SYNC.md)。

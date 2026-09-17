@@ -16,6 +16,15 @@ https://gitee.com/onepiecettt/luckfox-ubuntu-images
 4. 将工作流推送至 GitHub 的 `main`，或手动运行一次。
 5. 首次同步完成后，在 Gitee 检查默认分支为 `main`。
 
+这两处使用同一对密钥，但内容不同：
+
+| 配置位置 | 填写内容 |
+| --- | --- |
+| Gitee 个人账号的 SSH 公钥 | 公钥文件的完整内容，通常以 `.pub` 结尾 |
+| GitHub 仓库的 Actions Secret `GITEE_SSH_PRIVATE_KEY` | 对应私钥文件的完整内容，文件名没有 `.pub` 后缀 |
+
+GitHub 个人账号的 SSH 公钥设置用于本机向 GitHub 推送，不能替代仓库 Actions Secret。`.github/gitee_known_hosts` 保存的是 Gitee 官方服务器的公开主机公钥，用于校验服务器身份；同步账号的私钥和公钥都不保存在这个文件中。
+
 无需设置 GitHub Personal Access Token。工作流使用只读的 GitHub 仓库权限和专用 SSH 密钥向 Gitee 推送。
 
 Gitee 地址固定在工作流中。SSH 主机公钥固定在 `.github/gitee_known_hosts`，已对照 [Gitee 官方公布的主机公钥和指纹](https://help.gitee.com/account/gitees-ssh-key-fingerprints) 核验。

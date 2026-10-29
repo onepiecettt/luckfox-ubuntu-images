@@ -7,15 +7,11 @@ on:
     paths:
       - "releases/*.md"
     tags:
-      - "ubuntu-images-*"
+      - "v*"
   workflow_dispatch:
     inputs:
       tag:
         description: Existing GitHub Release tag
-        required: true
-        type: string
-      version:
-        description: Release notes version, for example 202609
         required: true
         type: string
 
@@ -37,18 +33,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           INPUT_TAG: ${{ inputs.tag }}
-          INPUT_VERSION: ${{ inputs.version }}
           BEFORE: ${{ github.event.before }}
         run: |
           set -euo pipefail
 
           publish_notes() {
-            local tag="$1" version="$2" create="$3"
-            local notes="releases/${version}.md"
+            local tag="$1" create="$2"
+            local notes="releases/${tag}.md"
 
-            if [[ ! "$tag" =~ ^[0-9A-Za-z][0-9A-Za-z._/-]*$ ||
-                  ! "$version" =~ ^[0-9A-Za-z._-]+$ ]]; then
-              echo "Invalid tag or version: $tag / $version" >&2
+            if [[ ! "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "Invalid release tag: $tag" >&2
               exit 1
             fi
             if [[ ! -f "$notes" ]]; then
@@ -59,38 +53,28 @@ jobs:
             if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
               gh release edit "$tag" \
                 --repo "$GITHUB_REPOSITORY" \
-                --title "ubuntu-images-${version}" \
+                --title "$tag" \
                 --notes-file "$notes"
             elif [[ "$create" == true ]]; then
               gh release create "$tag" \
                 --repo "$GITHUB_REPOSITORY" \
                 --verify-tag \
-                --title "ubuntu-images-${version}" \
+                --title "$tag" \
                 --notes-file "$notes"
-            elif [[ "$version" == 202609 ]]; then
-              echo "Existing release not found: $tag" >&2
-              exit 1
             else
               echo "Skipping $notes: release $tag has not been created yet"
             fi
           }
 
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
-            publish_notes "$INPUT_TAG" "$INPUT_VERSION" true
+            publish_notes "$INPUT_TAG" true
           elif [[ "$GITHUB_REF" == refs/heads/main ]]; then
             changed="$(git diff --name-only "$BEFORE" "$GITHUB_SHA" -- releases/)"
             while IFS= read -r path; do
-              [[ "$path" =~ ^releases/([0-9A-Za-z._-]+)\.md$ ]] || continue
-              version="${BASH_REMATCH[1]}"
-              [[ "$version" == *_CN ]] && continue
-
-              # The first release predates the ubuntu-images-* tag convention.
-              tag="ubuntu-images-${version}"
-              [[ "$version" == 202609 ]] && tag="v0.0.1"
-              publish_notes "$tag" "$version" false
+              [[ "$path" =~ ^releases/(v[0-9]+\.[0-9]+\.[0-9]+)\.md$ ]] || continue
+              publish_notes "${BASH_REMATCH[1]}" false
             done <<< "$changed"
           else
             tag="$GITHUB_REF_NAME"
-            [[ "$tag" == ubuntu-images-* ]] || exit 1
-            publish_notes "$tag" "${tag#ubuntu-images-}" true
+            publish_notes "$tag" true
           fi

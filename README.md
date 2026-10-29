@@ -10,11 +10,11 @@ Before downloading, check the complete board model and target storage medium. Im
 
 | Product family | Board model | Image version and storage | Release notes |
 | --- | --- | --- | --- |
-| Luckfox Lyra | Lyra | See the Release assets | [View release notes](releases/202609.md) |
-| Luckfox Lyra | Lyra Plus | See the Release assets | [View release notes](releases/202609.md) |
-| Luckfox Lyra | Lyra Pi | See the Release assets | [View release notes](releases/202609.md) |
-| Luckfox Lyra | Lyra Ultra | See the Release assets | [View release notes](releases/202609.md) |
-| Luckfox Lyra | Lyra Zero W | See the Release assets | [View release notes](releases/202609.md) |
+| Luckfox Lyra | Lyra | See the Release assets | [View release notes](releases/v0.0.1.md) |
+| Luckfox Lyra | Lyra Plus | See the Release assets | [View release notes](releases/v0.0.1.md) |
+| Luckfox Lyra | Lyra Pi | See the Release assets | [View release notes](releases/v0.0.1.md) |
+| Luckfox Lyra | Lyra Ultra | See the Release assets | [View release notes](releases/v0.0.1.md) |
+| Luckfox Lyra | Lyra Zero W | See the Release assets | [View release notes](releases/v0.0.1.md) |
 
 ## Download Files
 

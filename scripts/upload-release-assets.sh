@@ -8,8 +8,8 @@ Usage:
   upload-release-assets.sh [--repo OWNER/REPO] [--clobber] TAG IMAGE.img.xz [IMAGE.img.xz ...]
 
 Examples:
-  upload-release-assets.sh ubuntu-images-202609 Ubuntu_Luckfox_*.img.xz
-  upload-release-assets.sh --clobber ubuntu-images-202609 Ubuntu_Luckfox_*.img.xz
+  upload-release-assets.sh v0.0.1 Ubuntu_Luckfox_*.img.xz
+  upload-release-assets.sh --clobber v0.0.1 Ubuntu_Luckfox_*.img.xz
 
 Each image must have a matching IMAGE.img.xz.sha256 file in the same directory.
 The script verifies every checksum before uploading either file.

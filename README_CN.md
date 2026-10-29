@@ -10,11 +10,11 @@
 
 | 产品系列 | 开发板型号 | 镜像版本与介质 | Release 说明 |
 | --- | --- | --- | --- |
-| Luckfox Lyra | Lyra | 以 Release Assets 为准 | [查看说明](releases/202609_CN.md) |
-| Luckfox Lyra | Lyra Plus | 以 Release Assets 为准 | [查看说明](releases/202609_CN.md) |
-| Luckfox Lyra | Lyra Pi | 以 Release Assets 为准 | [查看说明](releases/202609_CN.md) |
-| Luckfox Lyra | Lyra Ultra | 以 Release Assets 为准 | [查看说明](releases/202609_CN.md) |
-| Luckfox Lyra | Lyra Zero W | 以 Release Assets 为准 | [查看说明](releases/202609_CN.md) |
+| Luckfox Lyra | Lyra | 以 Release Assets 为准 | [查看说明](releases/v0.0.1_CN.md) |
+| Luckfox Lyra | Lyra Plus | 以 Release Assets 为准 | [查看说明](releases/v0.0.1_CN.md) |
+| Luckfox Lyra | Lyra Pi | 以 Release Assets 为准 | [查看说明](releases/v0.0.1_CN.md) |
+| Luckfox Lyra | Lyra Ultra | 以 Release Assets 为准 | [查看说明](releases/v0.0.1_CN.md) |
+| Luckfox Lyra | Lyra Zero W | 以 Release Assets 为准 | [查看说明](releases/v0.0.1_CN.md) |
 
 ## 下载文件
 
